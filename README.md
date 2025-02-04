@@ -89,7 +89,7 @@ sequenceDiagram
     %% Search Functionality %%
     User ->> Squarebox: Search query input
     Squarebox ->> AI_Agent: Process search request (Autonome)
-    
+
     alt Web2 query (general search)
         AI_Agent ->> Squarebox: Return Web2 search results
     else Web3 query (blockchain-related)
@@ -100,7 +100,7 @@ sequenceDiagram
 
     Squarebox ->> AI_Agent: Generate AI-enhanced results
     AI_Agent -->> Squarebox: Return AI-processed insights
-    
+
     Squarebox ->> User: Display final search results
     User -->> Squarebox: User interacts with results (click, refine search)
 
@@ -130,3 +130,12 @@ sequenceDiagram
     - **Web3 Search**: Fetches blockchain data via Covalent SDK
 3. **Security & Data Management**
     - **Lit Protocol** protects sensitive credentials and API keys
+
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
