@@ -1,8 +1,12 @@
+import PropTypes from 'prop-types';
+import Avatar from './Avatar';
+
 export default function ChatMessage({ message }) {
   const isUser = message.role === 'user';
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+      {!isUser && <Avatar role="assistant" />}
       <div className={`max-w-[80%] p-3 rounded-lg ${
         isUser
           ? 'bg-[var(--color-primary)]'
@@ -17,3 +21,11 @@ export default function ChatMessage({ message }) {
     </div>
   );
 }
+
+ChatMessage.propTypes = {
+  message: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    role: PropTypes.oneOf(['user', 'assistant']).isRequired,
+    id: PropTypes.number.isRequired
+  }).isRequired
+};
