@@ -55,14 +55,16 @@ export default function Chat() {
   };
 
   return (
-    <MainLayout>
-      <div className="flex flex-col h-screen">
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          <ChatHistory messages={messages} />
-          {isTyping && <TypingIndicator />}
+    <div className="h-full">
+      <MainLayout>
+        <div className="flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <ChatHistory messages={messages} />
+            {isTyping && <TypingIndicator />}
+          </div>
+          <ChatInput onSendMessage={handleSendMessage} />
         </div>
-        <ChatInput onSendMessage={handleSendMessage} />
-      </div>
-    </MainLayout>
+      </MainLayout>
+    </div>
   );
 }
