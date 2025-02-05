@@ -1,29 +1,8 @@
-:root {
-  /* Dark theme base colors */
-  --color-background: #121212;
-  --color-surface: #1e1e1e;
-  --color-surface-alt: #2d2d2d;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #b3b3b3;
-
-  /* Vibrant accent colors */
-  --color-primary: #7c4dff;     /* Vibrant purple */
-  --color-secondary: #00e5ff;   /* Bright cyan */
-  --color-accent: #ff4081;      /* Hot pink */
-  --color-success: #00e676;     /* Bright green */
-  --color-warning: #ffab40;     /* Bright orange */
-  --color-error: #ff5252;       /* Bright red */
-
-  /* Interactive state colors */
-  --color-hover: rgba(255, 255, 255, 0.1);
-  --color-active: rgba(255, 255, 255, 0.2);
-}
-
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   background-color: var(--color-background);
   color: var(--color-text-primary);
 }
