@@ -2,9 +2,11 @@ import { useState } from 'react';
 import MainLayout from '../components/layout/MainLayout';
 import ChatHistory from '../components/chat/ChatHistory';
 import ChatInput from '../components/chat/ChatInput';
+import TypingIndicator from '../components/chat/TypingIndicator';
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
 
   const mockAIResponses = {
     hello: "Hello! How can I help you today?",
@@ -37,6 +39,9 @@ export default function Chat() {
       role: 'user'
     }]);
 
+    // Show typing indicator
+    setIsTyping(true);
+
     // Simulate AI response with a delay
     setTimeout(() => {
       const aiResponse = getAIResponse(message);
@@ -45,13 +50,17 @@ export default function Chat() {
         content: aiResponse,
         role: 'assistant'
       }]);
+      setIsTyping(false);
     }, 1000);
   };
 
   return (
     <MainLayout>
       <div className="flex flex-col h-screen">
-        <ChatHistory messages={messages} />
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <ChatHistory messages={messages} />
+          {isTyping && <TypingIndicator />}
+        </div>
         <ChatInput onSendMessage={handleSendMessage} />
       </div>
     </MainLayout>
