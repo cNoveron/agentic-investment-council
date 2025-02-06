@@ -1,11 +1,11 @@
-## Squarebox
+# Squarebox
 
-### **Project Description**
+## Project Description
 
 AI Agent Explorer is a Web3-focused search engine platform that utilizes AI agents to help users explore and analyze blockchain data, smart contracts, NFTs, and the latest Web3 trends.
 The platform personalizes the search experience, processes real-time data, and offers an intuitive interface for both Web2 and Web3 users.
 
-### **Problem Statement**
+## Problem Statement
 
 1. **Complexity of Web3 Data**
     - General users face difficulties in exploring blockchain data and Web3 ecosystem information.
@@ -15,7 +15,7 @@ The platform personalizes the search experience, processes real-time data, and o
 3. **Security Issues**
     - Users are exposed to security risks while managing sensitive data.
 
-### **Solution**
+## Solution
 
 AI Agent Explorer provides the following solutions:
 
@@ -23,7 +23,7 @@ AI Agent Explorer provides the following solutions:
 - A user-friendly onboarding environment that integrates Web2 and Web3 seamlessly.
 - Enhanced security for sensitive data through solutions like Lit Protocol.
 
-### **Key Features**
+## Key Features
 
 1. **AI-Driven Web3 Data Search**
     - The platform allows real-time exploration and analysis of various Web3 information, such as keywords, smart contracts, and NFTs.
@@ -40,7 +40,7 @@ AI Agent Explorer provides the following solutions:
 6. **Scalability and High-Speed Processing**
     - Utilizes Flow’s high-speed network to process large-scale data in real time.
 
-### **How Sponsors Are Utilized**
+## How Sponsors Are Utilized
 
 1. **Autonome**
     - **Trend Analysis and Automation**: Leverages Autonome AI agents to analyze the most searched keywords and news, automatically posting them on social media platforms like Twitter.
@@ -58,7 +58,7 @@ AI Agent Explorer provides the following solutions:
     - **Web2 User Onboarding**: Simplifies platform access for all users with Privy’s social login and email-based wallet creation features.
     - **Web3 Wallet Integration**: Provides seamless connectivity for existing wallet users.
 
-### Flow Diagram
+## Flow Diagram
 
 ```mermaid
 sequenceDiagram
@@ -110,7 +110,7 @@ sequenceDiagram
 
 ```
 
-#### How Squarebox Utilizes Sponsor Tracks
+### How Squarebox Utilizes Sponsor Tracks
 
 | **Sponsor Track** | **Application in Squarebox** |
 | --- | --- |
@@ -120,7 +120,7 @@ sequenceDiagram
 | **Lit Protocol** | Ensures secure management of private keys and authentication data |
 | **Covalent** | Retrieves on-chain blockchain data for Web3 search queries |
 
-#### Flow
+### Flow
 
 1. **Sign-up & Login (Only Privy)**
     - **Privy handles authentication** (Email or Wallet-based)
