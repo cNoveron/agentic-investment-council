@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@covalenthq/ai-agent-sdk": "^0.2.5",
+    "@covalenthq/ai-agent-sdk": "./lib/ai-agent-sdk",
     "@covalenthq/create-zee-app": "^0.2.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -31,6 +31,11 @@
     "globals": "^15.14.0",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.3",
+    "tsconfig-paths": "^4.2.0",
     "vite": "^6.1.0"
+  },
+  "overrides": {
+    "openai": "./lib/openai-node",
+    "@covalenthq/ai-agent-sdk": "./lib/ai-agent-sdk"
   }
 }

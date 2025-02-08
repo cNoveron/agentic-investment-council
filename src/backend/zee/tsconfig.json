@@ -1,12 +1,17 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "es2020",
         "module": "commonjs",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "outDir": "./dist",
-        "baseUrl": "./src"
+        "baseUrl": ".",
+        "paths": {
+            "openai": ["../../../lib/openai-node"],
+            "@covalenthq/ai-agent-sdk": ["../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src"],
+            "@covalenthq/ai-agent-sdk/*": ["../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/*"]
+        }
     }
 }
