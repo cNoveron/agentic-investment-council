@@ -21,8 +21,9 @@ const agent2 = new Agent({
 
 const zee = new ZeeWorkflow({
     description: "CryptoInvestmentAdvisor: A sophisticated multi-agent workflow that combines DeFi yield optimization strategies with memecoin trend analysis to provide comprehensive investment recommendations across Ethereum and Solana ecosystems. DeFIA focuses on sustainable yield generation through liquidity mining, lending, and restaking protocols, while Pepe monitors social signals and momentum in the memecoin space. Together, they provide a balanced perspective between stable DeFi returns and high-risk, high-reward memecoin opportunities, helping investors optimize their crypto portfolio allocation based on their risk tolerance.",
-    output: "Just bunch of stuff",
+    output: "A list of the most relevant recomendations for the user to invest their initial capital.",
     agents: { agent1, agent2 },
+    maxIterations: 3,
 });
 
 (async function main() {
