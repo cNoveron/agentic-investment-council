@@ -1,3 +1,6 @@
 [submodule "lib/ai-agent-sdk"]
 	path = lib/ai-agent-sdk
 	url = https://github.com/covalenthq/ai-agent-sdk.git
+[submodule "lib/openai-node"]
+	path = lib/openai-node
+	url = https://github.com/openai/openai-node.git
