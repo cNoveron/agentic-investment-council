@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@covalenthq/ai-agent-sdk": "file:../../../../../lib/ai-agent-sdk",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.1"
   }
 }
