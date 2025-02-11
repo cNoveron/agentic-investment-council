@@ -60,15 +60,14 @@ const schema = {
     }),
 };
 
-const state = StateFn.root(walletAnalyzer.description);
-state.messages.push(
-    user(
-        "Get the only the USDT balance for address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on eth-mainnet"
-    )
-);
-
 (async function main() {
-    // const result = await walletAnalyzer.generate(messages, schema)
+
+    const state = StateFn.root(walletAnalyzer.description);
+    state.messages.push(
+        user(
+            "Get the only the USDT balance for address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on eth-mainnet"
+        )
+    );
 
     const result = await walletAnalyzer.run(state);
     console.log('result', result);
@@ -108,3 +107,7 @@ state.messages.push(
     // const finalResult = await walletAnalyzer.run(finalState);
     // console.log(finalResult);
 })();
+
+export class WalletAnalyzer {
+    agent: Agent = walletAnalyzer;
+};
