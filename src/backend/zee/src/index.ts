@@ -1,4 +1,4 @@
-import { Agent, ZeeWorkflow } from "@covalenthq/ai-agent-sdk";
+import { Agent, ZeeWorkflow } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
 import "dotenv/config";
 
 const agent1 = new Agent({
