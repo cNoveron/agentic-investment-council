@@ -1,5 +1,7 @@
 # Squarebox
 
+[Demo]() | [Video]()
+
 ## Project Description
 
 AI Agent Explorer is a Web3-focused search engine platform that utilizes AI agents to help users explore and analyze blockchain data, smart contracts, NFTs, and the latest Web3 trends.
