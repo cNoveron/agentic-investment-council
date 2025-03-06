@@ -12,7 +12,7 @@ const macroAdvisor = new Agent({
         provider: "OPEN_AI",
         name: "gpt-4o-mini",
     },
-    description: "Your'e an agent specialized in assessing the state of the macroeconomic conditions that impact the crypto market. You're given a list of questions and you need to answer them based on the current state of the macroeconomic conditions:",
+    description: "You're an agent specialized in giving recommendations on crypto investing given the state of the FED's policies and risk-on assets market conditions that affect the crypto market.",
     instructions: [
         "Are we in a recession?",
         "If we're not in a recession, are we likely to enter one within the next 12 months?",
@@ -34,26 +34,25 @@ const macroAdvisor = new Agent({
         const messages = [
             system(`
                 ${agent.description}
-                Your job is to respond to the assigned questions.
-                You should generate a response for each question.
-                Each response should be a single sentence.
-                You should return the responses in a comma separated list.
-                You should return the responses in the following format:
-                <questionId>: <response>,
-                <questionId>: <response>,
-                ...
-                These are the questions:
-                ${macroAdvisor.instructions?.join('\n')}
-            `),
-            assistant(`
-                Based on the current state of the macroeconomic conditions,
-                would you say that is advisable to expose to the risk of the crypto market?
+
+                Your job is to produce a recommendation for the user on 3 points as a list:
+                1. How much of their monthly income they should they can afford to invest in the crypto market (monthly investable income).
+                2. Which assets they should invest in, and the percentage of their monthly investable income (also express it as an absolute amount) they should allocate to each asset.
+                3. Which assets they should not invest in.
+
+                You should perform the following steps:
+                1. Assess the current state of the FED's policies and determine the investment weather in risk-on assets markets.
+                2. Ask the user for their monthly income.
+                3. Ask the user for their current debts.
+                4. Ask the user for their monthly expenses.
+                5. Determine the user's monthly investable income by subtracting the user's monthly expenses and the user's monthly debts from their monthly income.
+                6. Produce a recommendation for the user on 3 points as a list as mentioned above.
             `),
             ...getSteps(state.messages),
             // assistant("Is there anything else I need to know?"),
             // user("No, I do not have additional information"),
             // assistant("What is the request?"),
-            ...state.messages,
+            //...state.messages,
         ];
 
         const schema = {
@@ -72,7 +71,7 @@ const macroAdvisor = new Agent({
                 next_step: z.string().describe(`
                         The next step ONLY if required by the original request.
                         Return empty string if you have fully answered the current request, even if
-                        you can think of additional tasks.
+                        you can think of additional tasks. Don't generate any other steps when the recommendation is done.
                     `),
                 has_next_step: z
                     .boolean()
