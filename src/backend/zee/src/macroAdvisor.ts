@@ -81,9 +81,9 @@ const macroAdvisor = new Agent({
             }),
         };
 
-        let response = await agent.generate(messages, schema);
+        let agent_llmResponse = await agent.generate(messages, schema);
 
-        if (response.type === "tool_call") {
+        if (agent_llmResponse.type === "tool_call") {
             return {
                 ...state,
                 status: "paused",
@@ -92,16 +92,16 @@ const macroAdvisor = new Agent({
                     {
                         role: "assistant",
                         content: "",
-                        tool_calls: response.value as ParsedFunctionToolCall[],
+                        tool_calls: agent_llmResponse.value as ParsedFunctionToolCall[],
                     },
                 ],
             };
         }
 
-        let stepResponse = response.value as z.infer<typeof schema.step>;
-        let assistantResponse = assistant(stepResponse.result);
+        let currentStep = agent_llmResponse.value as z.infer<typeof schema.step>;
+        let assistantResponse = assistant(currentStep.result);
 
-        if (stepResponse.require_prompt) {
+        if (currentStep.require_prompt) {
             console.log("zee/macroAdvisor: Require prompt");
             const readline = require('readline').createInterface({
                 input: process.stdin,
@@ -120,23 +120,25 @@ const macroAdvisor = new Agent({
                 assistantResponse,
                 user(userInput),
             ]
-            response = await agent.generate(state.messages, schema);
-            stepResponse = response.value as z.infer<typeof schema.step>;
-            assistantResponse = assistant(stepResponse.result);
+            agent_llmResponse = await agent.generate(state.messages, schema);
+            currentStep = agent_llmResponse.value as z.infer<typeof schema.step>;
+            assistantResponse = assistant(currentStep.result);
         }
 
-        if (stepResponse.has_next_step) {
-            return {
-                ...state,
-                messages: [
-                    ...state.messages,
-                    assistantResponse,
-                    user(stepResponse.next_step),
-                ],
-            };
+        const newState = {
+            ...state,
+            messages: [
+                ...state.messages,
+                assistantResponse,
+            ],
         }
 
-        const nextState = StateFn.finish(state, assistantResponse);
+        if (currentStep.has_next_step) {
+            newState.messages.push(user(currentStep.next_step));
+            return newState;
+        }
+
+        const nextState = StateFn.finish(state, newState);
 
         return nextState;
     }
