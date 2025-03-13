@@ -2,8 +2,8 @@ import { Agent, runToolCalls, TokenBalancesTool, ZeeWorkflow } from "../../../..
 import { user } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/base";
 import { StateFn } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/state";
 import { ChatCompletionAssistantMessageParam } from "../../../../lib/openai-node/src/resources";
-import { PairAnalyzer } from './pairAnalyzer';
-import { WalletAnalyzer } from './walletAnalyzer';
+import { PairAnalyzer } from './agents/pairAnalyzer';
+import { WalletAnalyzer } from './agents/walletAnalyzer';
 import "dotenv/config";
 
 // const agent1 = new Agent({

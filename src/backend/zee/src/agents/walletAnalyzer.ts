@@ -5,12 +5,12 @@ import {
     NFTBalancesTool,
     TransactionsTool,
     runToolCalls,
-} from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
+} from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
 import "dotenv/config";
-import { ChatCompletionAssistantMessageParam, ChatCompletionMessageParam } from "../../../../lib/openai-node/src/resources";
+import { ChatCompletionAssistantMessageParam, ChatCompletionMessageParam } from "../../../../../lib/openai-node/src/resources";
 import z from "zod";
-import { StateFn } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/state";
-import { user } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/base";
+import { StateFn } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/state";
+import { user } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/base";
 
 const tools = {
     tokenBalances: new TokenBalancesTool(process.env.GOLDRUSH_API_KEY),

@@ -1,5 +1,5 @@
-import { Agent, runToolCalls, TokenBalancesTool, ZeeWorkflow } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
-import { MacroAdvisor } from './macroAdvisor';
+import { Agent, runToolCalls, TokenBalancesTool, ZeeWorkflow } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
+import { MacroAdvisor } from '../agents/macroAdvisor';
 import "dotenv/config";
 
 const macroAdvisor = new MacroAdvisor();
