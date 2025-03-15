@@ -43,10 +43,9 @@ const macroAdvisor = new Agent({
                 You should perform the following steps:
                 1. Assess the current state of the FED's policies and determine the investment weather in risk-on assets markets.
                 2. Ask the user for their monthly income.
-                3. Ask the user for their current debts.
-                4. Ask the user for their monthly expenses.
-                5. Determine the user's monthly investable income by subtracting the user's monthly expenses and the user's monthly debts from their monthly income.
-                6. Produce a recommendation for the user on 3 points as a list as mentioned above.
+                3. Ask the user for their monthly expenses.
+                4. Determine the user's monthly investable income by subtracting the user's monthly expenses from their monthly income.
+                5. Produce a recommendation for the user on 3 points as a list as mentioned above.
             `),
             ...getSteps(state.messages),
             // assistant("Is there anything else I need to know?"),
