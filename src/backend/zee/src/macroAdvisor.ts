@@ -77,6 +77,9 @@ const macroAdvisor = new Agent({
                 has_next_step: z
                     .boolean()
                     .describe("True if you provided next_step. False otherwise."),
+                require_prompt: z
+                    .boolean()
+                    .describe("True if the current step requires input from the user. False otherwise."),
             }),
         };
 
@@ -101,9 +104,10 @@ const macroAdvisor = new Agent({
         const agentResponse = assistant(stepResponse.result);
 
         if (stepResponse.has_next_step) {
+            stepResponse.require_prompt && console.log("zee/macroAdvisor: Require prompt");
             return {
                 ...state,
-                status: "running",
+                status: stepResponse.require_prompt ? "require_prompt" : "running",
                 messages: [
                     ...state.messages,
                     agentResponse,
