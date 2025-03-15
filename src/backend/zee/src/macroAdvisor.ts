@@ -83,7 +83,7 @@ const macroAdvisor = new Agent({
             }),
         };
 
-        const response = await agent.generate(messages, schema);
+        let response = await agent.generate(messages, schema);
 
         if (response.type === "tool_call") {
             return {
@@ -100,23 +100,45 @@ const macroAdvisor = new Agent({
             };
         }
 
-        const stepResponse = response.value as z.infer<typeof schema.step>;
-        const agentResponse = assistant(stepResponse.result);
+        let stepResponse = response.value as z.infer<typeof schema.step>;
+        let assistantResponse = assistant(stepResponse.result);
+
+        if (stepResponse.require_prompt) {
+            console.log("zee/macroAdvisor: Require prompt");
+            const readline = require('readline').createInterface({
+                input: process.stdin,
+                output: process.stdout
+            });
+
+            const userInput = await new Promise<string>((resolve) => {
+                readline.question('Please provide input: ', (answer: string) => {
+                    readline.close();
+                    resolve(answer);
+                });
+            });
+
+            state.messages = [
+                ...messages,
+                assistantResponse,
+                user(userInput),
+            ]
+            response = await agent.generate(state.messages, schema);
+            stepResponse = response.value as z.infer<typeof schema.step>;
+            assistantResponse = assistant(stepResponse.result);
+        }
 
         if (stepResponse.has_next_step) {
-            stepResponse.require_prompt && console.log("zee/macroAdvisor: Require prompt");
             return {
                 ...state,
-                status: stepResponse.require_prompt ? "require_prompt" : "running",
                 messages: [
                     ...state.messages,
-                    agentResponse,
+                    assistantResponse,
                     user(stepResponse.next_step),
                 ],
             };
         }
 
-        const nextState = StateFn.finish(state, agentResponse);
+        const nextState = StateFn.finish(state, assistantResponse);
 
         return nextState;
     }
