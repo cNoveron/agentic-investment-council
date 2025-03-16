@@ -138,7 +138,7 @@ const macroAdvisor = new Agent({
             return newState;
         }
 
-        const nextState = StateFn.finish(state, newState);
+        const nextState = StateFn.finish(state, assistantResponse);
 
         return nextState;
     }
