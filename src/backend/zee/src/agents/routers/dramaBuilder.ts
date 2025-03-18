@@ -48,22 +48,18 @@ export const dramaBuilder = new Agent({
 
       const schema = {
         next_interaction: z.object({
-          involved_characters: z.string().array()
-            .describe(
-              "The characters involved in the next interaction"
-            ),
-          expected_intentions: z.string()
-            .describe(
-              "The intentions of the characters the characters should feel in the next interaction"
-            ),
-          expected_emotions: z.string().array()
-            .describe(
-              "The expected emotion that should driving the character's intentions"
-            ),
-          expected_reasoning: z.string().array()
-            .describe(
-              "The reasoning for the next interaction"
-            ),
+          involved_characters: z.string().array().describe(`
+            The characters involved in the next interaction.
+          `),
+          expected_intentions: z.string().describe(`
+            The intentions of the characters the characters should feel in the next interaction.
+          `),
+          expected_emotions: z.string().array().describe(`
+            The expected emotion that should driving the character's intentions.
+          `),
+          expected_reasoning: z.string().array().describe(`
+            The reasoning for the next interaction.
+          `),
         }),
       };
 
