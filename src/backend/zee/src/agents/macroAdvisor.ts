@@ -1,10 +1,10 @@
 import { ethers } from 'ethers';
 import { z } from 'zod';
 
-import { Agent, getSteps, ZeeWorkflow } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
-import { StateFn, ZeeWorkflowState } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/state";
-import { assistant, system, user } from "../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/base";
-import { ParsedFunctionToolCall } from '../../../../lib/openai-node/src/resources/beta/chat/completions';
+import { Agent, getSteps, ZeeWorkflow } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
+import { StateFn, ZeeWorkflowState } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/state";
+import { assistant, system, user } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src/core/base";
+import { ParsedFunctionToolCall } from '../../../../../lib/openai-node/src/resources/beta/chat/completions';
 
 const macroAdvisor = new Agent({
     name: "MacroAdvisor",
