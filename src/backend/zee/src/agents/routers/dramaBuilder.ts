@@ -73,9 +73,9 @@ export const dramaBuilder = new Agent({
           );
         }
 
-        if (result.value["task"]) {
+        if (result.value["involved_characters"].length > 0) {
           const nextState = StateFn.assign(state, [
-            ["resource_planner", user(result.value["task"])],
+            ["resource_planner", user(JSON.stringify(result.value))],
           ]);
           return nextState;
         }
