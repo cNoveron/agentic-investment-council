@@ -1,17 +1,21 @@
 import { Agent, runToolCalls, TokenBalancesTool, ZeeWorkflow } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
-import { YeelInur } from '../agents/characters/Yeel\'Inur';
-import { dramaBuilder } from "src/agents/routers/dramaBuilder";
+import { DóömaMon, MáäHisa, YëolInür } from '../agents/characters/Yeel\'Inur';
+import { DramaBuilder } from "src/agents/routers/dramaBuilder";
 import "dotenv/config";
 
-const yeelInur = new YeelInur();
+const yëolInür = new YëolInür();
+const máäHisa = new MáäHisa();
+const dóömaMon = new DóömaMon();
+
+const agents = { yeelInur: yëolInür.agent, máäHisa: máäHisa.agent, dóömaMon: dóömaMon.agent };
 const zee = new ZeeWorkflow({
     description: "LoreBuildingWorkflow: A multi-agent workflow that builds the lore for a high-fantasy fictional universe.",
     output: `
         A short compelling piece of narrative that achieves a specific narrative goal within a broader narrative arc.
     `,
-    agents: { yeelInur: yeelInur.agent },
+    agents,
     maxIterations: 3,
-    router: dramaBuilder,
+    router: new DramaBuilder(agents).agent,
 });
 
 (async function main() {
