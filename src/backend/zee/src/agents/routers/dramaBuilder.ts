@@ -7,7 +7,7 @@ import { StateFn } from "../../../../../../lib/ai-agent-sdk/packages/ai-agent-sd
 import { ChatCompletionMessageParam } from "../../../../../../lib/openai-node/src/resources";
 
 export const dramaBuilder = new Agent({
-    name: "router",
+    name: "Drama Builder",
     description: "You are a router that oversees the workflow.",
     model: {
       provider: "OPEN_AI",
