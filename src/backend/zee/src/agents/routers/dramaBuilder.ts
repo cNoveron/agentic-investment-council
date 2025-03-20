@@ -61,15 +61,14 @@ export class DramaBuilder {
                         involved_characters: z.array(z.enum(this.validCharacters)).describe(`
                             The characters involved in the next interaction. Only the agents in the current workflow can be included.
                         `),
-                        expected_intentions: z.string().describe(`
-                            The intentions of the characters the characters should feel in the next interaction.
-                        `),
-                        expected_emotions: z.array(z.string()).describe(`
-                            The expected emotion that should driving the character's intentions.
-                        `),
-                        expected_reasoning: z.array(z.string()).describe(`
-                            The reasoning for the next interaction.
-                        `),
+                        reader: z.object({
+                            expected_emotions: z.array(z.string()).describe(`
+                                The expected emotions to compell to the reader.
+                            `),
+                            expected_affinity: z.array(z.string()).describe(`
+                                The character with whom the reader is expected to develop affinity.
+                            `),
+                        })
                     }),
                 };
 
