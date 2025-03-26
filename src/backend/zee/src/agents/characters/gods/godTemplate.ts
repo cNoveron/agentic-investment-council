@@ -71,10 +71,13 @@ export const createGod = (name: string, description: string) => new Agent({
                 `),
             }),
         };
-
-        let agent_llmResponse = await agent.generate(messages, schema);
-
-        if (agent_llmResponse.type === "tool_call") {
+        let agent_llmResponse;
+        try {
+            agent_llmResponse = await agent.generate(messages, schema);
+        } catch (e) {
+            console.log(e)
+        }
+        if (agent_llmResponse?.type === "tool_call") {
             return {
                 ...state,
                 status: "paused",
