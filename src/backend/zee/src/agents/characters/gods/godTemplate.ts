@@ -92,8 +92,9 @@ export const createGod = (name: string, description: string) => new Agent({
             };
         }
 
-        let currentTurn = agent_llmResponse.value as z.infer<typeof schema.turn>;
-        let agentResponse = user(JSON.stringify(currentTurn));
+        let currentTurn = agent_llmResponse?.value as z.infer<typeof schema.turn>;
+        let agentResponse = assistant(JSON.stringify(currentTurn));
+        console.log(`godTemplate: ${agent.name}: agentResponse:`, agentResponse);
 
         const newState = {
             ...state,
@@ -104,7 +105,9 @@ export const createGod = (name: string, description: string) => new Agent({
         }
 
         if (currentTurn.milestone_next) {
-            newState.messages.push(assistant(currentTurn.milestone_next));
+            const nextMilestone = assistant(currentTurn.milestone_next);
+            console.log(`godTemplate: ${agent.name}: nextMilestone:`, nextMilestone);
+            newState.messages.push(nextMilestone);
             return newState;
         }
 
