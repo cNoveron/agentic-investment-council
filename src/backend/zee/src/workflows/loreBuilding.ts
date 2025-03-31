@@ -1,6 +1,7 @@
 import { Agent, runToolCalls, TokenBalancesTool, ZeeWorkflow } from "../../../../../lib/ai-agent-sdk/packages/ai-agent-sdk/src";
 import { DóömaMon, MáäHisa, YëolInür } from '../agents/characters/Yeel\'Inur';
 import { DramaBuilder } from "src/agents/routers/dramaBuilder";
+import { StylishWriter } from "src/agents/endgame/stylishWriter";
 import "dotenv/config";
 
 const yëolInür = new YëolInür();
@@ -16,6 +17,7 @@ const zee = new ZeeWorkflow({
     agents,
     maxIterations: 3,
     router: new DramaBuilder(agents).agent,
+    endgame: new StylishWriter(agents).agent,
 });
 
 (async function main() {
