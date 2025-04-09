@@ -48,35 +48,26 @@ const macroAdvisor = new Agent({
                 5. Produce a recommendation for the user on 3 points as a list as mentioned above.
             `),
             ...getSteps(state.messages),
-            // assistant("Is there anything else I need to know?"),
-            // user("No, I do not have additional information"),
-            // assistant("What is the request?"),
-            //...state.messages,
         ];
 
         const schema = {
             step: z.object({
-                name: z
-                    .string()
+                name: z.string()
                     .describe("Name of the current step or action being performed"),
-                result: z
-                    .string()
+                result: z.string()
                     .describe(
                         "The output of this step. Include all relevant details and information."
                     ),
-                reasoning: z
-                    .string()
+                reasoning: z.string()
                     .describe("The reasoning for performing this step."),
                 next_step: z.string().describe(`
                         The next step ONLY if required by the original request.
                         Return empty string if you have fully answered the current request, even if
                         you can think of additional tasks. Don't generate any other steps when the recommendation is done.
                     `),
-                has_next_step: z
-                    .boolean()
+                has_next_step: z.boolean()
                     .describe("True if you provided next_step. False otherwise."),
-                require_prompt: z
-                    .boolean()
+                require_prompt: z.boolean()
                     .describe("True if the current step requires input from the user. False otherwise."),
             }),
         };
