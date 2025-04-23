@@ -73,7 +73,7 @@ export class DramaBuilder {
                 };
 
                 const result = await agent.generate(messages, schema);
-                console.log("Router result", result);
+                console.log(`${this.agent.name} result`, result.value);
 
                 try {
                     if (result.type !== "next_interaction") {
