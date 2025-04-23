@@ -7,8 +7,8 @@ import { ParsedFunctionToolCall } from "../../../../../../../lib/openai-node/src
 export const createGod = (name: string, description: string) => new Agent({
     name,
     model: {
-        provider: "ANTHROPIC",
-        name: "claude-3-5-sonnet",
+        provider: "OPEN_AI",
+        name: "gpt-4o-mini",
     },
     description,
     instructions: [
