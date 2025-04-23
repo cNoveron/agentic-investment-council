@@ -39,16 +39,21 @@ export const createGod = (name: string, description: string) => new Agent({
 
         const schema = {
             turn: z.object({
-                name: z.string().describe("Name of the current character"),
+                name: z.string().describe("The name of this character."),
                 reasoning: z.string().describe(`
                     The reasoning of the character upon the current history of interactions.
                 `),
-                message: z.string().describe(`
-                    The message of the character based on his reasoning.
-                `),
-                message_receiver: z.string().describe(`
-                    The character to whom the message is intended.
-                `),
+                message: z.object({
+                    conlang: z.string().describe(`
+                        The message of the character based on his reasoning. In the conlang.
+                    `),
+                    english: z.string().describe(`
+                        The English translation of the message of the character based on his reasoning.
+                    `),
+                    receiver: z.string().describe(`
+                        The character to whom the message is intended.
+                    `),
+                }),
                 action: z.string().or(z.null()).describe(`
                     The action that the character intends to perform within the most immediate time horizon of the current interaction. Null if the character does not intend to perform an action.
                 `),
