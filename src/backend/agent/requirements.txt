@@ -2,3 +2,5 @@ fastapi
 pydantic
 langchain
 langchain_openai
+pydantic_settings
+uvicorn

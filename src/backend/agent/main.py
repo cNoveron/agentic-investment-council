@@ -1,10 +1,13 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, BaseSettings
-from typing import List, Optional
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+from pydantic_settings import BaseSettings
+from typing import List, Optional, AsyncGenerator
 import httpx
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 import os
+import json
 
 # Environment variable configuration
 class Settings(BaseSettings):
@@ -23,9 +26,10 @@ class Message(BaseModel):
 
 class ChatCompletionRequest(BaseModel):
     messages: List[Message]
-    model: str = "deepseek-chat"
+    model: str = "deepseek-ai/DeepSeek-V3"
     max_tokens: Optional[int] = 2048
     temperature: Optional[float] = 0.7
+    stream: Optional[bool] = False  # Add streaming support
 
 # SearXNG search handler
 async def search_searxng(query: str) -> str:
@@ -49,7 +53,7 @@ async def should_search(user_message: str) -> bool:
     llm = ChatOpenAI(
         api_key=settings.deepseek_api_key,
         base_url=settings.deepseek_base_url,
-        model="deepseek-chat",
+        model="deepseek-ai/DeepSeek-V3",
         temperature=0.2  # Low temperature for stable judgment
     )
     prompt = SystemMessage(content="You are an AI assistant responsible for determining whether a user's question requires an internet search. Respond with only 'yes' or 'no'.")
@@ -57,14 +61,37 @@ async def should_search(user_message: str) -> bool:
     response = await llm.agenerate([[prompt, user_prompt]])
     return response.generations[0][0].text.strip().lower() == "yes"
 
-# OpenAI-compatible response format
+# OpenAI-compatible streaming response format
+async def format_stream_response(content_stream: AsyncGenerator[str, None]) -> StreamingResponse:
+    async def generator():
+        async for chunk in content_stream:
+            yield f"data: {json.dumps({
+                'object': 'chat.completion.chunk',
+                'choices': [{
+                    'delta': {
+                        'content': chunk
+                    }
+                }]
+            })}\n\n"
+        yield "data: [DONE]\n\n"
+
+    return StreamingResponse(
+        generator(),
+        media_type="text/event-stream",
+        headers={
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive'
+        }
+    )
+
+# Non-streaming response format
 def format_response(content: str) -> dict:
     return {
         "object": "chat.completion",
         "choices": [{
-            "message": {
-                "role": "assistant",
-                "content": content
+            'message': {
+                'role': 'assistant',
+                'content': content
             }
         }]
     }
@@ -85,7 +112,12 @@ async def chat_completion(request: ChatCompletionRequest):
         try:
             context = await search_searxng(user_message)
         except Exception as e:
-            return format_response(f"Failed to perform a web search. Attempting to answer directly. Error: {str(e)}")
+            if request.stream:
+                async def error_stream():
+                    yield f"Failed to perform a web search. Attempting to answer directly."
+                return await format_stream_response(error_stream())
+            else:
+                return format_response(f"Failed to perform a web search. Attempting to answer directly. Error: {str(e)}")
 
     # Construct the prompt
     prompt = SystemMessage(content="You are a helpful AI assistant. Answer the user's question based on the following context.") 
@@ -100,10 +132,23 @@ async def chat_completion(request: ChatCompletionRequest):
             base_url=settings.deepseek_base_url,
             model=request.model,
             max_tokens=request.max_tokens,
-            temperature=request.temperature
+            temperature=request.temperature,
+            streaming=request.stream  # Enable streaming if requested
         )
-        response = await llm.agenerate([[prompt, user_prompt]])
-        return format_response(response.generations[0][0].text)
+
+        if request.stream:
+            async def content_generator():
+                async for chunk in llm.astream([prompt, user_prompt]):
+                    if isinstance(chunk.content, str):
+                        yield chunk.content
+                    else:
+                        yield str(chunk.content)
+
+            return await format_stream_response(content_generator())
+        else:
+            # Non-streaming response
+            response = await llm.agenerate([[prompt, user_prompt]])
+            return format_response(response.generations[0][0].text)
     except Exception as e:
         raise HTTPException(
             status_code=500, 
