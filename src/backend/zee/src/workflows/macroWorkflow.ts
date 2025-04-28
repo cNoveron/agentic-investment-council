@@ -4,7 +4,8 @@ import "dotenv/config";
 
 const macroAdvisor = new MacroAdvisor();
 const zee = new ZeeWorkflow({
-    description: "CryptoInvestmentAdvisor: A sophisticated multi-agent workflow that advises the user on how to invest their monthly income in the crypto market.",
+    name: "AI Crypto Investment Council",
+    description: "A sophisticated multi-agent workflow that advises the user on how to invest their monthly income in the crypto market.",
     output: `
         A recommendation for the user on 3 points as a list:
         1. How much of their monthly income they should they can afford to invest in the crypto market (monthly investable income).
